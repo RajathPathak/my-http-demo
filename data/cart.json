@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Mouse",
+    "price": 699,
+    "quantity": 1,
+    "image": "https://via.placeholder.com/200x150?text=Wireless+Mouse",
+    "category": "Accessories"
+  },
+  {
+    "id": 2,
+    "name": "Mechanical Keyboard",
+    "price": 2499,
+    "quantity": 1,
+    "image": "https://via.placeholder.com/200x150?text=Keyboard",
+    "category": "Accessories"
+  },
+  {
+    "id": 3,
+    "name": "Bluetooth Headphones",
+    "price": 3999,
+    "quantity": 1,
+    "image": "https://via.placeholder.com/200x150?text=Headphones",
+    "category": "Audio"
+  },
+  {
+    "id": 4,
+    "name": "Smartwatch X Pro",
+    "price": 5999,
+    "quantity": 1,
+    "image": "https://via.placeholder.com/200x150?text=Smartwatch",
+    "category": "Wearables"
+  },
+  {
+    "id": 5,
+    "name": "USB-C Charger 45W",
+    "price": 1299,
+    "quantity": 1,
+    "image": "https://via.placeholder.com/200x150?text=Charger",
+    "category": "Power"
+  },
+  {
+    "id": 6,
+    "name": "HD Webcam 1080p",
+    "price": 1799,
+    "quantity": 1,
+    "image": "https://via.placeholder.com/200x150?text=Webcam",
+    "category": "Video"
+  }
+]

@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>HTTP Demo Login</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h2>Login Page — HTTP Demo</h2>
+  <h2>Login Page (POST Demo)</h2>
+  <input type="text" id="username" placeholder="Username" />
+  <input type="password" id="password" placeholder="Password" />
+  <button onclick="login()">Login</button>
+  <p id="msg"></p>
 
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Username" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-
-    <div id="responseBox"></div>
-
-    <div id="actions" style="display:none;">
-      <h3>Welcome, <span id="userDisplay"></span></h3>
-      <button id="getProfile">GET Profile</button>
-      <button id="updateProfile">PUT (Update Profile)</button>
-      <button id="deleteProfile">DELETE (Remove Profile)</button>
-      <button id="logout">Logout</button>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+  <script>
+    function login() {
+      fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.message.includes('successful')) {
+            window.location.href = 'dashboard.html';
+          } else {
+            document.getElementById('msg').innerText = data.message;
+          }
+        });
+    }
+  </script>
 </body>
 </html>

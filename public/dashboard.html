@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Dashboard (GET Demo)</h2>
+  <button onclick="getDashboard()">Fetch Dashboard</button>
+  <div id="data"></div>
+  <a href="cart.html">Go to Cart (PUT/DELETE Demo)</a>
+
+  <script>
+    function getDashboard() {
+      fetch('/api/dashboard')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('data').innerHTML =
+            `<p>${data.message}</p><p>Status: ${data.status}</p>`;
+        });
+    }
+  </script>
+</body>
+</html>

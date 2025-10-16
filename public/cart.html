@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Cart (PUT & DELETE Demo)</h2>
+
+  <button onclick="loadCart()">Load Cart</button>
+  <div id="cart"></div>
+
+  <input type="text" id="itemInput" placeholder="Enter item name" />
+  <button onclick="addItem()">Add Item (PUT)</button>
+  <button onclick="deleteItem()">Delete Item (DELETE)</button>
+
+  <script>
+    function loadCart() {
+      fetch('/api/cart')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('cart').innerHTML = `<p>Items: ${data.join(', ')}</p>`;
+        });
+    }
+
+    function addItem() {
+      const item = document.getElementById('itemInput').value;
+      fetch('/api/cart', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ item })
+      }).then(res => res.json()).then(alert);
+    }
+
+    function deleteItem() {
+      const item = document.getElementById('itemInput').value;
+      fetch('/api/cart', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ item })
+      }).then(res => res.json()).then(alert);
+    }
+  </script>
+</body>
+</html>

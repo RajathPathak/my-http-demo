@@ -2,6 +2,8 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 app.use(express.json());
@@ -67,5 +69,44 @@ app.get("/api/error", (req, res) => {
   return res.status(500).json({ message: "Server error demo (500)" });
 });
 
+// ---------------------------------------------------------------------------
+// NEW ADDITIONS — Dashboard + Cart demo (GET, PUT, DELETE)
+// ---------------------------------------------------------------------------
+const cartPath = path.join(__dirname, "data", "cart.json");
+
+// GET /api/dashboard → simulate user data (GET demo)
+app.get("/api/dashboard", (req, res) => {
+  res.status(200).json({
+    message: "Welcome to Dashboard",
+    endpoints: ["/api/profile", "/api/cart"],
+    status: "200 OK"
+  });
+});
+
+// GET /api/cart
+app.get("/api/cart", (req, res) => {
+  const cart = JSON.parse(fs.readFileSync(cartPath));
+  res.status(200).json(cart);
+});
+
+// PUT /api/cart → add item
+app.put("/api/cart", (req, res) => {
+  const { item } = req.body || {};
+  const cart = JSON.parse(fs.readFileSync(cartPath));
+  if (item) cart.push(item);
+  fs.writeFileSync(cartPath, JSON.stringify(cart, null, 2));
+  res.status(201).json({ message: "Item added", cart });
+});
+
+// DELETE /api/cart → remove item
+app.delete("/api/cart", (req, res) => {
+  const { item } = req.body || {};
+  let cart = JSON.parse(fs.readFileSync(cartPath));
+  cart = cart.filter((i) => i !== item);
+  fs.writeFileSync(cartPath, JSON.stringify(cart, null, 2));
+  res.status(200).json({ message: "Item deleted", cart });
+});
+
+// ---------------------------------------------------------------------------
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server running at http://localhost:${PORT}`));
